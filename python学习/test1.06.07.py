@@ -1,0 +1,8 @@
+tuple1 = ('周杰伦',11,['football','music'])
+num1 = tuple1.index(11)
+print(num1)
+print(tuple1[0])
+tuple1[2].remove('football')
+print(tuple1)
+tuple1[2].append("coding")
+print(tuple1)
