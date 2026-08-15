@@ -1,0 +1,15 @@
+# docker-compose.yml —— 一键启动多个服务
+services:
+  # 服务1：你刚才构建的 Python 应用
+  app:
+    build: .                    # 用当前目录的 Dockerfile 构建
+    container_name: myapp
+    ports:
+      - "9000:8000"             # 电脑9000 → 容器8000
+
+  # 服务2：Redis 数据库（从网上直接拉官方镜像）
+  redis:
+    image: redis:7              # 不需要 Dockerfile，直接用现成的
+    container_name: myredis
+    ports:
+      - "6379:6379"

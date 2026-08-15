@@ -1,0 +1,38 @@
+能力	命令
+查看文件	cat head tail wc
+搜索内容	grep
+组合命令	| 管道
+保存结果	> >> 重定向
+处理表格	cut awk sort
+找文件	find
+权限	chmod
+进程	ps kill top
+
+权限（chmod）—— 面试常考
+
+ls -l
+# 最左边的 drwxr-xr-x 就是权限
+
+# 拆解：d  rwx  r-x  r-x
+#       │   │    │    │
+#       │   │    │    └── 其他用户
+#       │   │    └── 同组用户
+#       │   └── 文件所有者（你）
+#       └── d 表示目录，- 表示文件
+
+# r = 读(read)  w = 写(write)  x = 执行(execute)
+
+chmod +x script.sh
+# +x        = 给所有用户加上执行权限
+
+chmod 755 script.sh
+# 数字版：rwx=7, r-x=5, r-x=5
+# 7 = 4+2+1 = r+w+x
+# 5 = 4+0+1 = r+  +x
+# 4=读 2=写 1=执行，加起来就是权限组合
+练习：
+
+
+cd /d/ai-agent-journey/linux练习
+chmod 644 error_only.txt     # 改成只有你能写，别人只能读
+ls -l error_only.txt         # 看看权限变成了 -rw-r--r--

@@ -1,0 +1,7 @@
+新增内容	亮点
+三个区域流程图	工作区 → 暂存区 → 仓库 → 远程（配购物车比喻）
+main vs origin/main 详解	包括 "ahead by 1 commit" 是什么意思、pull = fetch + merge
+reset vs revert 对比表	附适用场景（本地用 reset / 已push用 revert）
+你的双远程配置	origin=Gitee、github=GitHub 的推送命令记录
+闯关经验	哪些必学、哪些暂缓（多人协作以后再学）
+踩坑记录	git git push、commit≠上传、working tree clean 的含义
