@@ -1,0 +1,45 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      MYSQL_HOST: mysql        # 容器网络里直接用服务名访问
+      MYSQL_PORT: "3306"
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root123456
+      MYSQL_DATABASE: todo_db
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      SECRET_KEY: docker-secret-2026
+    depends_on:
+      mysql:
+        condition: service_healthy   # 等 MySQL 就绪再启动应用
+      redis:
+        condition: service_started
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3307:3306"                  # 映射到 3307，避开本机已装的 MySQL(3306)
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: todo_db
+      TZ: Asia/Shanghai
+    volumes:
+      # 首次启动自动执行 setup.sql 建表；数据存在卷里，容器删了数据还在
+      - ./setup.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot123456"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7
+    ports:
+      - "6381:6379"                  # 映射到 6381，避开本机的 redis-learn(6380)
+
+volumes:
+  mysql-data:
